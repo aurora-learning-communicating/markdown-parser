@@ -1,6 +1,6 @@
-package com.steiner.aurora.com.aurora.markdown.core.paragraph
+package com.aurora.markdown.core.paragraph
 
-import com.steiner.aurora.com.aurora.markdown.core.MarkdownElement
+import com.aurora.markdown.core.MarkdownElement
 import kotlin.reflect.KClass
 
 object LineBreak: MarkdownElement.InlineElement(null) {

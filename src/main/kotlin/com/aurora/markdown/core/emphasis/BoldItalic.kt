@@ -1,7 +1,7 @@
-package com.steiner.aurora.com.aurora.markdown.core.emphasis
+package com.aurora.markdown.core.emphasis
 
-import com.steiner.aurora.com.aurora.markdown.core.MarkdownElement
-import com.steiner.aurora.com.aurora.markdown.core.plaintext.PlainText
+import com.aurora.markdown.core.MarkdownElement
+import com.aurora.markdown.core.plaintext.PlainText
 import kotlin.reflect.KClass
 
 class BoldItalic: Emphasis() {

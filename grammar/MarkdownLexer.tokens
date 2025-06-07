@@ -1,0 +1,8 @@
+Letter=1
+Digit=2
+Space=3
+Tab=4
+Newline=5
+WhiteSpace=6
+' '=3
+'\t'=4

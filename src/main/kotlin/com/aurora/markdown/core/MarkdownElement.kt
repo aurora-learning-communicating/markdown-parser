@@ -1,4 +1,4 @@
-package com.steiner.aurora.com.aurora.markdown.core
+package com.aurora.markdown.core
 
 import kotlin.reflect.KClass
 

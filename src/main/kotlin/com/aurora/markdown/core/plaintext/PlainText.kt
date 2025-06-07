@@ -1,6 +1,6 @@
-package com.steiner.aurora.com.aurora.markdown.core.plaintext
+package com.aurora.markdown.core.plaintext
 
-import com.steiner.aurora.com.aurora.markdown.core.MarkdownElement
+import com.aurora.markdown.core.MarkdownElement
 import kotlin.reflect.KClass
 
 class PlainText(val text: String): MarkdownElement.InlineElement(null) {

@@ -1,5 +1,5 @@
-package com.steiner.aurora.com.aurora.markdown.core.emphasis
+package com.aurora.markdown.core.emphasis
 
-import com.steiner.aurora.com.aurora.markdown.core.MarkdownElement
+import com.aurora.markdown.core.MarkdownElement
 
 abstract class Emphasis: MarkdownElement.InlineElement(arrayListOf())

@@ -1,6 +1,6 @@
-package com.steiner.aurora.com.aurora.markdown.core.link
+package com.aurora.markdown.core.link
 
-import com.steiner.aurora.com.aurora.markdown.core.MarkdownElement
+import com.aurora.markdown.core.MarkdownElement
 import java.net.URL
 import kotlin.reflect.KClass
 
