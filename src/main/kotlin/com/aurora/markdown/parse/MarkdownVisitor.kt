@@ -3,7 +3,6 @@ package com.aurora.markdown.parse
 import com.aurora.markdown.core.MarkdownElement
 import com.aurora.markdown.core.code.InlineCode
 import com.aurora.markdown.core.emphasis.Bold
-import com.aurora.markdown.core.emphasis.BoldItalic
 import com.aurora.markdown.core.emphasis.Italic
 import com.aurora.markdown.core.emphasis.StrikeThrough
 import com.aurora.markdown.core.emphasis.Underline
@@ -13,6 +12,10 @@ import com.aurora.markdown.grammar.MarkdownRuleParser
 
 
 class MarkdownVisitor : MarkdownRuleBaseVisitor<MarkdownElement>() {
+    override fun visitStart(ctx: MarkdownRuleParser.StartContext): MarkdownElement {
+        return visitInline(ctx.inline())
+    }
+
     override fun visitPlainText(ctx: MarkdownRuleParser.PlainTextContext): PlainText {
         val text = ctx.text
         return PlainText(text)
@@ -67,23 +70,6 @@ class MarkdownVisitor : MarkdownRuleBaseVisitor<MarkdownElement>() {
         return StrikeThrough().apply {
             elements.forEach {
                 append(visitStrikeThroughElement(it))
-            }
-        }
-    }
-
-    override fun visitBoldItalicSingle(ctx: MarkdownRuleParser.BoldItalicSingleContext): BoldItalic {
-        val element = visitBoldItalicElement(ctx.boldItalicElement())
-
-        return BoldItalic().apply {
-            append(element)
-        }
-    }
-
-    override fun visitBoldItalicMulti(ctx: MarkdownRuleParser.BoldItalicMultiContext): BoldItalic {
-        val elements = ctx.boldItalicElement()
-        return BoldItalic().apply {
-            elements.forEach {
-                append(visitBoldItalicElement(it))
             }
         }
     }

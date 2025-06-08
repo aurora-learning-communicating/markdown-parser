@@ -7,3 +7,12 @@ Space: ' ';
 Tab: '\t';
 Newline: '\r'? '\n';
 WhiteSpace: [\r\n]+;
+
+// Markdown Lexer
+Star: '*';
+Tilde: '~';
+Underscore: '_';
+//BoldTag: '**';
+//ItalicTag: '*';
+//StrikeThroughTag: '~~';
+//UnderlineTag: '__';

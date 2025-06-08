@@ -1,6 +1,12 @@
 grammar MarkdownRule;
 
-import MarkdownLexer;
+options {
+    tokenVocab = MarkdownLexer;
+}
+
+// TODO replace inline
+start: inline EOF;
+
 // TODO add url link
 inline: plainText | inlineCode | emphasis;
 
@@ -10,38 +16,31 @@ indent: Space+ | Tab;
 plainText: (Letter | Digit)+;
 inlineCode: '`' plainText '`';
 
-emphasis: bold | boldItalic | italic | strikeThrough | underline;
+emphasis: bold | italic | strikeThrough | underline;
 
 // TODO add urllink
-boldTag: '**';
+boldTag: Star Star;
 boldElement: (plainText | inlineCode | strikeThrough | italic);
 bold: boldTag boldElement boldTag # boldSingle
     | boldTag boldElement (indent boldElement)+ boldTag # boldMulti
     ;
 
 // TODO add urllink
-italicTag: '*';
+italicTag: Star;
 italicElement: (bold | inlineCode | strikeThrough | plainText);
 italic: italicTag italicElement italicTag # italicSingle
     |   italicTag italicElement (indent italicElement)+ italicTag # italicMutli
     ;
 
 // TODO add urllink
-strikeTag: '~~';
+strikeThroughTag: Tilde Tilde;
 strikeThroughElement: (italic | bold | inlineCode | plainText);
-strikeThrough: strikeTag strikeThroughElement strikeTag # strikeThroughSingle
-    |          strikeTag strikeThroughElement (indent strikeThroughElement)+ strikeTag # strikeThroughMulti
-    ;
-
-// TODO adjust here
-boldItalicTag: '***';
-boldItalicElement: plainText;
-boldItalic: boldItalicTag boldItalicElement boldItalicTag # boldItalicSingle
-    |       boldItalicTag boldItalicElement (indent boldItalicElement)+ boldItalicTag # boldItalicMulti
+strikeThrough: strikeThroughTag strikeThroughElement strikeThroughTag # strikeThroughSingle
+    |          strikeThroughTag strikeThroughElement (indent strikeThroughElement)+ strikeThroughTag # strikeThroughMulti
     ;
 
 // TODO add urllink
-underlineTag: '__';
+underlineTag: Underscore Underscore;
 underlineElement: (plainText | bold | italic | inlineCode);
 underline: underlineTag underlineElement underlineTag # underlineSingle
     |      underlineTag underlineElement (indent underlineElement)+ underlineTag # underlineMutli

@@ -45,12 +45,28 @@ tasks.generateGrammarSource {
             into(grammarDir)
         }
     }
+}
 
+tasks.generateTestGrammarSource {
+    outputDirectory = file("src/main/java/com/aurora/markdown/grammar")
+    arguments = arguments + listOf("-visitor", "-package", "com.aurora.markdown.grammar")
 
+    doLast {
+        val grammarDir = file("$projectDir/grammar")
+        copy {
+            from(outputDirectory) {
+                include("*.tokens")
+                include("*.interp")
+            }
+
+            into(grammarDir)
+        }
+    }
 }
 
 tasks.compileKotlin {
     dependsOn(tasks.generateGrammarSource)
+    dependsOn(tasks.generateTestGrammarSource)
 }
 
 tasks.compileTestKotlin {
@@ -60,6 +76,7 @@ tasks.compileTestKotlin {
 
 tasks.compileJava {
     dependsOn(tasks.generateGrammarSource)
+    dependsOn(tasks.generateTestGrammarSource)
 }
 
 tasks.compileTestJava {
