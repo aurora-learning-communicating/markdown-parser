@@ -1,4 +1,4 @@
-// Generated from MarkdownRule.g4 by ANTLR 4.13.2
+// Generated from InlineRule.g4 by ANTLR 4.13.2
 package com.aurora.markdown.grammar;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -6,468 +6,456 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link MarkdownRuleListener},
+ * This class provides an empty implementation of {@link InlineRuleListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
 @SuppressWarnings("CheckReturnValue")
-public class MarkdownRuleBaseListener implements MarkdownRuleListener {
+public class InlineRuleBaseListener implements InlineRuleListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStart(MarkdownRule.StartContext ctx) { }
+	@Override public void enterInline(InlineRule.InlineContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStart(MarkdownRule.StartContext ctx) { }
+	@Override public void exitInline(InlineRule.InlineContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInline(MarkdownRule.InlineContext ctx) { }
+	@Override public void enterIndent(InlineRule.IndentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInline(MarkdownRule.InlineContext ctx) { }
+	@Override public void exitIndent(InlineRule.IndentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIndent(MarkdownRule.IndentContext ctx) { }
+	@Override public void enterPlainText(InlineRule.PlainTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIndent(MarkdownRule.IndentContext ctx) { }
+	@Override public void exitPlainText(InlineRule.PlainTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPlainText(MarkdownRule.PlainTextContext ctx) { }
+	@Override public void enterInlineCode(InlineRule.InlineCodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPlainText(MarkdownRule.PlainTextContext ctx) { }
+	@Override public void exitInlineCode(InlineRule.InlineCodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInlineCode(MarkdownRule.InlineCodeContext ctx) { }
+	@Override public void enterEmphasis(InlineRule.EmphasisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInlineCode(MarkdownRule.InlineCodeContext ctx) { }
+	@Override public void exitEmphasis(InlineRule.EmphasisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEmphasis(MarkdownRule.EmphasisContext ctx) { }
+	@Override public void enterBoldTag(InlineRule.BoldTagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEmphasis(MarkdownRule.EmphasisContext ctx) { }
+	@Override public void exitBoldTag(InlineRule.BoldTagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoldTag(MarkdownRule.BoldTagContext ctx) { }
+	@Override public void enterBoldElement(InlineRule.BoldElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoldTag(MarkdownRule.BoldTagContext ctx) { }
+	@Override public void exitBoldElement(InlineRule.BoldElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoldElement(MarkdownRule.BoldElementContext ctx) { }
+	@Override public void enterBoldSingle(InlineRule.BoldSingleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoldElement(MarkdownRule.BoldElementContext ctx) { }
+	@Override public void exitBoldSingle(InlineRule.BoldSingleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoldSingle(MarkdownRule.BoldSingleContext ctx) { }
+	@Override public void enterBoldMulti(InlineRule.BoldMultiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoldSingle(MarkdownRule.BoldSingleContext ctx) { }
+	@Override public void exitBoldMulti(InlineRule.BoldMultiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoldMulti(MarkdownRule.BoldMultiContext ctx) { }
+	@Override public void enterItalicTag(InlineRule.ItalicTagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoldMulti(MarkdownRule.BoldMultiContext ctx) { }
+	@Override public void exitItalicTag(InlineRule.ItalicTagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterItalicTag(MarkdownRule.ItalicTagContext ctx) { }
+	@Override public void enterItalicElement(InlineRule.ItalicElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitItalicTag(MarkdownRule.ItalicTagContext ctx) { }
+	@Override public void exitItalicElement(InlineRule.ItalicElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterItalicElement(MarkdownRule.ItalicElementContext ctx) { }
+	@Override public void enterItalicSingle(InlineRule.ItalicSingleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitItalicElement(MarkdownRule.ItalicElementContext ctx) { }
+	@Override public void exitItalicSingle(InlineRule.ItalicSingleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterItalicSingle(MarkdownRule.ItalicSingleContext ctx) { }
+	@Override public void enterItalicMutli(InlineRule.ItalicMutliContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitItalicSingle(MarkdownRule.ItalicSingleContext ctx) { }
+	@Override public void exitItalicMutli(InlineRule.ItalicMutliContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterItalicMutli(MarkdownRule.ItalicMutliContext ctx) { }
+	@Override public void enterStrikeThroughTag(InlineRule.StrikeThroughTagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitItalicMutli(MarkdownRule.ItalicMutliContext ctx) { }
+	@Override public void exitStrikeThroughTag(InlineRule.StrikeThroughTagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStrikeThroughTag(MarkdownRule.StrikeThroughTagContext ctx) { }
+	@Override public void enterStrikeThroughElement(InlineRule.StrikeThroughElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStrikeThroughTag(MarkdownRule.StrikeThroughTagContext ctx) { }
+	@Override public void exitStrikeThroughElement(InlineRule.StrikeThroughElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStrikeThroughElement(MarkdownRule.StrikeThroughElementContext ctx) { }
+	@Override public void enterStrikeThroughSingle(InlineRule.StrikeThroughSingleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStrikeThroughElement(MarkdownRule.StrikeThroughElementContext ctx) { }
+	@Override public void exitStrikeThroughSingle(InlineRule.StrikeThroughSingleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStrikeThroughSingle(MarkdownRule.StrikeThroughSingleContext ctx) { }
+	@Override public void enterStrikeThroughMulti(InlineRule.StrikeThroughMultiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStrikeThroughSingle(MarkdownRule.StrikeThroughSingleContext ctx) { }
+	@Override public void exitStrikeThroughMulti(InlineRule.StrikeThroughMultiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStrikeThroughMulti(MarkdownRule.StrikeThroughMultiContext ctx) { }
+	@Override public void enterUrlLink(InlineRule.UrlLinkContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStrikeThroughMulti(MarkdownRule.StrikeThroughMultiContext ctx) { }
+	@Override public void exitUrlLink(InlineRule.UrlLinkContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUrlLink(MarkdownRule.UrlLinkContext ctx) { }
+	@Override public void enterAltText(InlineRule.AltTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUrlLink(MarkdownRule.UrlLinkContext ctx) { }
+	@Override public void exitAltText(InlineRule.AltTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAltText(MarkdownRule.AltTextContext ctx) { }
+	@Override public void enterUrl(InlineRule.UrlContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAltText(MarkdownRule.AltTextContext ctx) { }
+	@Override public void exitUrl(InlineRule.UrlContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUrl(MarkdownRule.UrlContext ctx) { }
+	@Override public void enterColonSlashSlash(InlineRule.ColonSlashSlashContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUrl(MarkdownRule.UrlContext ctx) { }
+	@Override public void exitColonSlashSlash(InlineRule.ColonSlashSlashContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterColonSlashSlash(MarkdownRule.ColonSlashSlashContext ctx) { }
+	@Override public void enterScheme(InlineRule.SchemeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitColonSlashSlash(MarkdownRule.ColonSlashSlashContext ctx) { }
+	@Override public void exitScheme(InlineRule.SchemeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScheme(MarkdownRule.SchemeContext ctx) { }
+	@Override public void enterHost(InlineRule.HostContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitScheme(MarkdownRule.SchemeContext ctx) { }
+	@Override public void exitHost(InlineRule.HostContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHost(MarkdownRule.HostContext ctx) { }
+	@Override public void enterDomainNameOrIPv4Host(InlineRule.DomainNameOrIPv4HostContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHost(MarkdownRule.HostContext ctx) { }
+	@Override public void exitDomainNameOrIPv4Host(InlineRule.DomainNameOrIPv4HostContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDomainNameOrIPv4Host(MarkdownRule.DomainNameOrIPv4HostContext ctx) { }
+	@Override public void enterIPv6Host(InlineRule.IPv6HostContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDomainNameOrIPv4Host(MarkdownRule.DomainNameOrIPv4HostContext ctx) { }
+	@Override public void exitIPv6Host(InlineRule.IPv6HostContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIPv6Host(MarkdownRule.IPv6HostContext ctx) { }
+	@Override public void enterV6host(InlineRule.V6hostContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIPv6Host(MarkdownRule.IPv6HostContext ctx) { }
+	@Override public void exitV6host(InlineRule.V6hostContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterV6host(MarkdownRule.V6hostContext ctx) { }
+	@Override public void enterPort(InlineRule.PortContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitV6host(MarkdownRule.V6hostContext ctx) { }
+	@Override public void exitPort(InlineRule.PortContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPort(MarkdownRule.PortContext ctx) { }
+	@Override public void enterPath(InlineRule.PathContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPort(MarkdownRule.PortContext ctx) { }
+	@Override public void exitPath(InlineRule.PathContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPath(MarkdownRule.PathContext ctx) { }
+	@Override public void enterUser(InlineRule.UserContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPath(MarkdownRule.PathContext ctx) { }
+	@Override public void exitUser(InlineRule.UserContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUser(MarkdownRule.UserContext ctx) { }
+	@Override public void enterLogin(InlineRule.LoginContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUser(MarkdownRule.UserContext ctx) { }
+	@Override public void exitLogin(InlineRule.LoginContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogin(MarkdownRule.LoginContext ctx) { }
+	@Override public void enterPassword(InlineRule.PasswordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogin(MarkdownRule.LoginContext ctx) { }
+	@Override public void exitPassword(InlineRule.PasswordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPassword(MarkdownRule.PasswordContext ctx) { }
+	@Override public void enterFrag(InlineRule.FragContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPassword(MarkdownRule.PasswordContext ctx) { }
+	@Override public void exitFrag(InlineRule.FragContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFrag(MarkdownRule.FragContext ctx) { }
+	@Override public void enterQuery(InlineRule.QueryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFrag(MarkdownRule.FragContext ctx) { }
+	@Override public void exitQuery(InlineRule.QueryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQuery(MarkdownRule.QueryContext ctx) { }
+	@Override public void enterSearch(InlineRule.SearchContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQuery(MarkdownRule.QueryContext ctx) { }
+	@Override public void exitSearch(InlineRule.SearchContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSearch(MarkdownRule.SearchContext ctx) { }
+	@Override public void enterSearchparameter(InlineRule.SearchparameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSearch(MarkdownRule.SearchContext ctx) { }
+	@Override public void exitSearchparameter(InlineRule.SearchparameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSearchparameter(MarkdownRule.SearchparameterContext ctx) { }
+	@Override public void enterString(InlineRule.StringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSearchparameter(MarkdownRule.SearchparameterContext ctx) { }
+	@Override public void exitString(InlineRule.StringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterString(MarkdownRule.StringContext ctx) { }
+	@Override public void enterHex(InlineRule.HexContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitString(MarkdownRule.StringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterHex(MarkdownRule.HexContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitHex(MarkdownRule.HexContext ctx) { }
+	@Override public void exitHex(InlineRule.HexContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

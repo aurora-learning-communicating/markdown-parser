@@ -30,8 +30,10 @@ tasks.test {
     useJUnitPlatform()
 }
 
+val grammarOutput = file("src/main/java/com/aurora/markdown/grammar")
+
 tasks.generateGrammarSource {
-    outputDirectory = file("src/main/java/com/aurora/markdown/grammar")
+    outputDirectory = grammarOutput
     arguments = arguments + listOf("-visitor", "-package", "com.aurora.markdown.grammar")
 
     doLast {
@@ -45,6 +47,8 @@ tasks.generateGrammarSource {
             into(grammarDir)
         }
     }
+
+
 }
 
 tasks.generateTestGrammarSource {
@@ -88,40 +92,20 @@ kotlin {
     jvmToolchain(17)
 }
 
-tasks.register("rename-package") {
+tasks.register("antlr-clean") {
+    val grammarDir = file("$projectDir/grammar")
 
-    doLast {
-        val targetDir = File("/Users/steiner/workspace/aurora/markdown-parser/src/main/kotlin/com/aurora/markdown/core")
-
-        modifyContentRecursive(targetDir)
-    }
-}
-
-private fun modifyContent(file: File) {
-    val lines = file.readLines().toMutableList()
-    val replaceString = "com.steiner.aurora.com.aurora"
-    val replacement = "com.aurora"
-    lines.forEachIndexed { index, line ->
-        if (line.contains(replaceString)) {
-            lines[index] = line.replace(replaceString, replacement)
-        }
+    fileTree(grammarDir) {
+        include("*.interp")
+        include("*.tokens")
+    }.let {
+        delete(it)
     }
 
-    // lines[0] = "package com.aurora.markdown.core.$packageName"
-
-    file.writeText(lines.joinToString("\n"))
-}
-
-private fun modifyContentRecursive(directory: File) {
-    directory.listFiles()?.forEach { file ->
-        when {
-            file.isFile -> {
-                modifyContent(file)
-            }
-
-            file.isDirectory -> {
-                modifyContentRecursive(file)
-            }
-        }
+    fileTree(grammarOutput) {
+        include("*.tokens")
+        include("*.interp")
+    }.let {
+        delete(it)
     }
 }

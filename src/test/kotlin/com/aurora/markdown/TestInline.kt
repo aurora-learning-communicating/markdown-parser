@@ -2,8 +2,8 @@ package com.aurora.markdown
 
 import com.aurora.markdown.core.MarkdownElement
 import com.aurora.markdown.grammar.MarkdownLexer
-import com.aurora.markdown.grammar.MarkdownRuleParser
-import com.aurora.markdown.parse.MarkdownVisitor
+import com.aurora.markdown.grammar.MarkdownRule
+import com.aurora.markdown.parse.MarkdownRuleParser
 
 import org.antlr.v4.runtime.CharStream
 import org.antlr.v4.runtime.CharStreams
@@ -15,9 +15,29 @@ import java.io.FileInputStream
 class TestInline {
     @Test
     fun testBold() {
-        val file = File("src/test/resources/test.md")
+        val string = "**hello world**"
+        val input = CharStreams.fromString(string)
 
-        val input = CharStreams.fromStream(FileInputStream(file))
+        val markdown = visitMarkdownElement(input)
+        println(markdown::class)
+        println(markdown.toHTML())
+    }
+
+    @Test
+    fun testCombine() {
+        val string = "***hello world***"
+        val input = CharStreams.fromString(string)
+
+        val markdown = visitMarkdownElement(input)
+        println(markdown::class)
+        println(markdown.toHTML())
+    }
+
+    @Test
+    fun testUrlLink() {
+        val string = "[hello world](http://www.google.com)"
+        val input = CharStreams.fromString(string)
+
         val markdown = visitMarkdownElement(input)
         println(markdown::class)
         println(markdown.toHTML())
@@ -32,10 +52,10 @@ class TestInline {
     private fun visitMarkdownElement(charStream: CharStream): MarkdownElement {
         val lexer = MarkdownLexer(charStream)
         val tokens = CommonTokenStream(lexer)
-        val parser = MarkdownRuleParser(tokens)
+        val parser = MarkdownRule(tokens)
 
         val tree = parser.start()
-        val visitor = MarkdownVisitor()
+        val visitor = MarkdownRuleParser()
         return visitor.visit(tree)
     }
 }
