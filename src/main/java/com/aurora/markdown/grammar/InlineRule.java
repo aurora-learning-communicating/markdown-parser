@@ -20,7 +20,8 @@ public class InlineRule extends Parser {
 		Letter=1, Digit=2, Space=3, Tab=4, Newline=5, Star=6, Tilde=7, Underscore=8, 
 		Colon=9, Slash=10, LeftBracket=11, RightBracket=12, LeftParenthesis=13, 
 		RightParenthesis=14, AtSign=15, QuestionMark=16, Ampersand=17, Hash=18, 
-		Equal=19, Dot=20, Plus=21, Minus=22, Percent=23, Backtick=24;
+		Equal=19, Dot=20, Plus=21, Minus=22, Percent=23, InlineBacktick=24, BlockBacktick=25, 
+		CodeContent=26, InlineCodeEnd=27, BlockCodeEnd=28;
 	public static final int
 		RULE_inline = 0, RULE_indent = 1, RULE_plainText = 2, RULE_inlineCode = 3, 
 		RULE_emphasis = 4, RULE_boldTag = 5, RULE_boldElement = 6, RULE_bold = 7, 
@@ -47,7 +48,7 @@ public class InlineRule extends Parser {
 		return new String[] {
 			null, null, null, "' '", "'\\t'", null, "'*'", "'~'", "'_'", "':'", "'/'", 
 			"'['", "']'", "'('", "')'", "'@'", "'?'", "'&'", "'#'", "'='", "'.'", 
-			"'+'", "'-'", "'%'", "'`'"
+			"'+'", "'-'", "'%'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -56,7 +57,8 @@ public class InlineRule extends Parser {
 			null, "Letter", "Digit", "Space", "Tab", "Newline", "Star", "Tilde", 
 			"Underscore", "Colon", "Slash", "LeftBracket", "RightBracket", "LeftParenthesis", 
 			"RightParenthesis", "AtSign", "QuestionMark", "Ampersand", "Hash", "Equal", 
-			"Dot", "Plus", "Minus", "Percent", "Backtick"
+			"Dot", "Plus", "Minus", "Percent", "InlineBacktick", "BlockBacktick", 
+			"CodeContent", "InlineCodeEnd", "BlockCodeEnd"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -158,7 +160,7 @@ public class InlineRule extends Parser {
 				plainText();
 				}
 				break;
-			case Backtick:
+			case InlineBacktick:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(67);
@@ -343,13 +345,9 @@ public class InlineRule extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class InlineCodeContext extends ParserRuleContext {
-		public List<TerminalNode> Backtick() { return getTokens(InlineRule.Backtick); }
-		public TerminalNode Backtick(int i) {
-			return getToken(InlineRule.Backtick, i);
-		}
-		public PlainTextContext plainText() {
-			return getRuleContext(PlainTextContext.class,0);
-		}
+		public TerminalNode InlineBacktick() { return getToken(InlineRule.InlineBacktick, 0); }
+		public TerminalNode CodeContent() { return getToken(InlineRule.CodeContent, 0); }
+		public TerminalNode InlineCodeEnd() { return getToken(InlineRule.InlineCodeEnd, 0); }
 		public InlineCodeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -376,11 +374,11 @@ public class InlineRule extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(85);
-			match(Backtick);
+			match(InlineBacktick);
 			setState(86);
-			plainText();
+			match(CodeContent);
 			setState(87);
-			match(Backtick);
+			match(InlineCodeEnd);
 			}
 		}
 		catch (RecognitionException re) {
@@ -564,7 +562,7 @@ public class InlineRule extends Parser {
 				plainText();
 				}
 				break;
-			case Backtick:
+			case InlineBacktick:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(98);
@@ -835,7 +833,7 @@ public class InlineRule extends Parser {
 				bold();
 				}
 				break;
-			case Backtick:
+			case InlineBacktick:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(124);
@@ -2837,7 +2835,7 @@ public class InlineRule extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0018\u015f\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0004\u0001\u001c\u015f\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
 		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
 		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
 		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
@@ -2918,7 +2916,7 @@ public class InlineRule extends Parser {
 		"NM\u0001\u0000\u0000\u0000O\u0003\u0001\u0000\u0000\u0000PR\u0007\u0000"+
 		"\u0000\u0000QP\u0001\u0000\u0000\u0000RS\u0001\u0000\u0000\u0000SQ\u0001"+
 		"\u0000\u0000\u0000ST\u0001\u0000\u0000\u0000T\u0005\u0001\u0000\u0000"+
-		"\u0000UV\u0005\u0018\u0000\u0000VW\u0003\u0004\u0002\u0000WX\u0005\u0018"+
+		"\u0000UV\u0005\u0018\u0000\u0000VW\u0005\u001a\u0000\u0000WX\u0005\u001b"+
 		"\u0000\u0000X\u0007\u0001\u0000\u0000\u0000Y]\u0003\u000e\u0007\u0000"+
 		"Z]\u0003\u0014\n\u0000[]\u0003\u001a\r\u0000\\Y\u0001\u0000\u0000\u0000"+
 		"\\Z\u0001\u0000\u0000\u0000\\[\u0001\u0000\u0000\u0000]\t\u0001\u0000"+

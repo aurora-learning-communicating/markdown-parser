@@ -44,10 +44,22 @@ class TestInline {
     }
 
     @Test
+    fun testInlineCode() {
+        val string = "`1*2*3`";
+        val input = CharStreams.fromString(string)
+
+        val markdown = visitMarkdownElement(input)
+        println(markdown::class)
+        println(markdown.toHTML())
+    }
+
+    @Test
     fun testFileExist() {
         val file = File("src/test/resources/test.md")
         println(file.exists())
     }
+
+
 
     private fun visitMarkdownElement(charStream: CharStream): MarkdownElement {
         val lexer = MarkdownLexer(charStream)

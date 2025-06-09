@@ -28,4 +28,11 @@ Dot: '.';
 Plus: '+';
 Minus: '-';
 Percent: '%';
-Backtick: '`';
+
+InlineBacktick: '`' -> pushMode(CODE_MODE);
+BlockBacktick: '```' -> pushMode(CODE_MODE);
+
+mode CODE_MODE;
+CodeContent: ~[`\r\n]+;
+InlineCodeEnd: '`' -> popMode;
+BlockCodeEnd: '```' -> popMode;

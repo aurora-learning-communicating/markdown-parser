@@ -12,7 +12,7 @@ inline: plainText | inlineCode | emphasis | urlLink;
 indent: Space+ | Tab;
 
 plainText: (Letter | Digit)+;
-inlineCode: Backtick plainText Backtick;
+inlineCode: InlineBacktick CodeContent InlineCodeEnd;
 
 emphasis: bold | italic | strikeThrough;
 

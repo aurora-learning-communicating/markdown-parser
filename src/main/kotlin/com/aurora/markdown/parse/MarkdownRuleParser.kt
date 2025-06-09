@@ -23,8 +23,8 @@ class MarkdownRuleParser: MarkdownRuleBaseVisitor<MarkdownElement>() {
     }
 
     override fun visitInlineCode(ctx: MarkdownRule.InlineCodeContext): InlineCode {
-        val text = visitPlainText(ctx.plainText())
-        return InlineCode(text)
+        val code = ctx.content.text
+        return InlineCode(code)
     }
 
     override fun visitBoldSingle(ctx: MarkdownRule.BoldSingleContext): Bold {
