@@ -78,25 +78,25 @@ public interface InlineRuleListener extends ParseTreeListener {
 	 */
 	void exitBoldElement(InlineRule.BoldElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code boldSingle}
+	 * Enter a parse tree produced by the {@code BoldSingle}
 	 * labeled alternative in {@link InlineRule#bold}.
 	 * @param ctx the parse tree
 	 */
 	void enterBoldSingle(InlineRule.BoldSingleContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code boldSingle}
+	 * Exit a parse tree produced by the {@code BoldSingle}
 	 * labeled alternative in {@link InlineRule#bold}.
 	 * @param ctx the parse tree
 	 */
 	void exitBoldSingle(InlineRule.BoldSingleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code boldMulti}
+	 * Enter a parse tree produced by the {@code BoldMulti}
 	 * labeled alternative in {@link InlineRule#bold}.
 	 * @param ctx the parse tree
 	 */
 	void enterBoldMulti(InlineRule.BoldMultiContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code boldMulti}
+	 * Exit a parse tree produced by the {@code BoldMulti}
 	 * labeled alternative in {@link InlineRule#bold}.
 	 * @param ctx the parse tree
 	 */
@@ -122,25 +122,25 @@ public interface InlineRuleListener extends ParseTreeListener {
 	 */
 	void exitItalicElement(InlineRule.ItalicElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code italicSingle}
+	 * Enter a parse tree produced by the {@code ItalicSingle}
 	 * labeled alternative in {@link InlineRule#italic}.
 	 * @param ctx the parse tree
 	 */
 	void enterItalicSingle(InlineRule.ItalicSingleContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code italicSingle}
+	 * Exit a parse tree produced by the {@code ItalicSingle}
 	 * labeled alternative in {@link InlineRule#italic}.
 	 * @param ctx the parse tree
 	 */
 	void exitItalicSingle(InlineRule.ItalicSingleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code italicMutli}
+	 * Enter a parse tree produced by the {@code ItalicMutli}
 	 * labeled alternative in {@link InlineRule#italic}.
 	 * @param ctx the parse tree
 	 */
 	void enterItalicMutli(InlineRule.ItalicMutliContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code italicMutli}
+	 * Exit a parse tree produced by the {@code ItalicMutli}
 	 * labeled alternative in {@link InlineRule#italic}.
 	 * @param ctx the parse tree
 	 */
@@ -166,25 +166,25 @@ public interface InlineRuleListener extends ParseTreeListener {
 	 */
 	void exitStrikeThroughElement(InlineRule.StrikeThroughElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code strikeThroughSingle}
+	 * Enter a parse tree produced by the {@code StrikeThroughSingle}
 	 * labeled alternative in {@link InlineRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 */
 	void enterStrikeThroughSingle(InlineRule.StrikeThroughSingleContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code strikeThroughSingle}
+	 * Exit a parse tree produced by the {@code StrikeThroughSingle}
 	 * labeled alternative in {@link InlineRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 */
 	void exitStrikeThroughSingle(InlineRule.StrikeThroughSingleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code strikeThroughMulti}
+	 * Enter a parse tree produced by the {@code StrikeThroughMulti}
 	 * labeled alternative in {@link InlineRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 */
 	void enterStrikeThroughMulti(InlineRule.StrikeThroughMultiContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code strikeThroughMulti}
+	 * Exit a parse tree produced by the {@code StrikeThroughMulti}
 	 * labeled alternative in {@link InlineRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 */

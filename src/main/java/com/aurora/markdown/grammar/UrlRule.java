@@ -20,7 +20,9 @@ public class UrlRule extends Parser {
 		Letter=1, Digit=2, Space=3, Tab=4, Newline=5, Star=6, Tilde=7, Underscore=8, 
 		Colon=9, Slash=10, LeftBracket=11, RightBracket=12, LeftParenthesis=13, 
 		RightParenthesis=14, AtSign=15, QuestionMark=16, Ampersand=17, Hash=18, 
-		Equal=19, Dot=20, Plus=21, Minus=22, Percent=23, Backtick=24;
+		Equal=19, Dot=20, Plus=21, Minus=22, Percent=23, InlineBacktick=24, BlockBacktick=25, 
+		InlineCodeContent=26, InlineCodeEnd=27, LanguageMode=28, LanguageEmptyMode=29, 
+		LanguageModeEnd=30, EmptyChar=31, NotEmptyChar=32, BlockCodeEnd=33;
 	public static final int
 		RULE_url = 0, RULE_colonSlashSlash = 1, RULE_scheme = 2, RULE_host = 3, 
 		RULE_hostname = 4, RULE_v6host = 5, RULE_port = 6, RULE_path = 7, RULE_user = 8, 
@@ -39,7 +41,7 @@ public class UrlRule extends Parser {
 		return new String[] {
 			null, null, null, "' '", "'\\t'", null, "'*'", "'~'", "'_'", "':'", "'/'", 
 			"'['", "']'", "'('", "')'", "'@'", "'?'", "'&'", "'#'", "'='", "'.'", 
-			"'+'", "'-'", "'%'", "'`'"
+			"'+'", "'-'", "'%'", null, null, null, null, null, "'\\n'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -48,7 +50,9 @@ public class UrlRule extends Parser {
 			null, "Letter", "Digit", "Space", "Tab", "Newline", "Star", "Tilde", 
 			"Underscore", "Colon", "Slash", "LeftBracket", "RightBracket", "LeftParenthesis", 
 			"RightParenthesis", "AtSign", "QuestionMark", "Ampersand", "Hash", "Equal", 
-			"Dot", "Plus", "Minus", "Percent", "Backtick"
+			"Dot", "Plus", "Minus", "Percent", "InlineBacktick", "BlockBacktick", 
+			"InlineCodeContent", "InlineCodeEnd", "LanguageMode", "LanguageEmptyMode", 
+			"LanguageModeEnd", "EmptyChar", "NotEmptyChar", "BlockCodeEnd"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -1520,29 +1524,29 @@ public class UrlRule extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0018\u00c4\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
-		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
-		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
-		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
-		"\u0002\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007"+
-		"\u000f\u0002\u0010\u0007\u0010\u0001\u0000\u0001\u0000\u0003\u0000%\b"+
-		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0003\u0000*\b\u0000\u0001"+
-		"\u0000\u0001\u0000\u0003\u0000.\b\u0000\u0003\u00000\b\u0000\u0001\u0000"+
-		"\u0003\u00003\b\u0000\u0001\u0000\u0003\u00006\b\u0000\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0003\u0003"+
-		"\u0003?\b\u0003\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001"+
-		"\u0004\u0001\u0004\u0001\u0004\u0003\u0004H\b\u0004\u0001\u0005\u0001"+
-		"\u0005\u0003\u0005L\b\u0005\u0001\u0005\u0001\u0005\u0004\u0005P\b\u0005"+
-		"\u000b\u0005\f\u0005Q\u0003\u0005T\b\u0005\u0001\u0005\u0001\u0005\u0003"+
-		"\u0005X\b\u0005\u0001\u0005\u0001\u0005\u0004\u0005\\\b\u0005\u000b\u0005"+
-		"\f\u0005]\u0003\u0005`\b\u0005\u0005\u0005b\b\u0005\n\u0005\f\u0005e\t"+
-		"\u0005\u0001\u0006\u0004\u0006h\b\u0006\u000b\u0006\f\u0006i\u0001\u0007"+
-		"\u0001\u0007\u0001\u0007\u0005\u0007o\b\u0007\n\u0007\f\u0007r\t\u0007"+
-		"\u0001\u0007\u0003\u0007u\b\u0007\u0001\b\u0001\b\u0001\t\u0001\t\u0001"+
-		"\t\u0003\t|\b\t\u0001\t\u0001\t\u0001\n\u0001\n\u0001\u000b\u0001\u000b"+
-		"\u0001\u000b\u0004\u000b\u0085\b\u000b\u000b\u000b\f\u000b\u0086\u0003"+
-		"\u000b\u0089\b\u000b\u0001\f\u0001\f\u0001\f\u0001\r\u0001\r\u0001\r\u0005"+
-		"\r\u0091\b\r\n\r\f\r\u0094\t\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001"+
+		"\u0004\u0001!\u00c4\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
+		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
+		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
+		"\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007\u000f"+
+		"\u0002\u0010\u0007\u0010\u0001\u0000\u0001\u0000\u0003\u0000%\b\u0000"+
+		"\u0001\u0000\u0001\u0000\u0001\u0000\u0003\u0000*\b\u0000\u0001\u0000"+
+		"\u0001\u0000\u0003\u0000.\b\u0000\u0003\u00000\b\u0000\u0001\u0000\u0003"+
+		"\u00003\b\u0000\u0001\u0000\u0003\u00006\b\u0000\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0003\u0003\u0003"+
+		"?\b\u0003\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004"+
+		"\u0001\u0004\u0001\u0004\u0003\u0004H\b\u0004\u0001\u0005\u0001\u0005"+
+		"\u0003\u0005L\b\u0005\u0001\u0005\u0001\u0005\u0004\u0005P\b\u0005\u000b"+
+		"\u0005\f\u0005Q\u0003\u0005T\b\u0005\u0001\u0005\u0001\u0005\u0003\u0005"+
+		"X\b\u0005\u0001\u0005\u0001\u0005\u0004\u0005\\\b\u0005\u000b\u0005\f"+
+		"\u0005]\u0003\u0005`\b\u0005\u0005\u0005b\b\u0005\n\u0005\f\u0005e\t\u0005"+
+		"\u0001\u0006\u0004\u0006h\b\u0006\u000b\u0006\f\u0006i\u0001\u0007\u0001"+
+		"\u0007\u0001\u0007\u0005\u0007o\b\u0007\n\u0007\f\u0007r\t\u0007\u0001"+
+		"\u0007\u0003\u0007u\b\u0007\u0001\b\u0001\b\u0001\t\u0001\t\u0001\t\u0003"+
+		"\t|\b\t\u0001\t\u0001\t\u0001\n\u0001\n\u0001\u000b\u0001\u000b\u0001"+
+		"\u000b\u0004\u000b\u0085\b\u000b\u000b\u000b\f\u000b\u0086\u0003\u000b"+
+		"\u0089\b\u000b\u0001\f\u0001\f\u0001\f\u0001\r\u0001\r\u0001\r\u0005\r"+
+		"\u0091\b\r\n\r\f\r\u0094\t\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001"+
 		"\u000e\u0004\u000e\u009a\b\u000e\u000b\u000e\f\u000e\u009b\u0001\u000e"+
 		"\u0003\u000e\u009f\b\u000e\u0003\u000e\u00a1\b\u000e\u0001\u000f\u0001"+
 		"\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0003\u000f\u00a8\b\u000f\u0001"+

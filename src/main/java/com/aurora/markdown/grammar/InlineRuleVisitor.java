@@ -53,14 +53,14 @@ public interface InlineRuleVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBoldElement(InlineRule.BoldElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code boldSingle}
+	 * Visit a parse tree produced by the {@code BoldSingle}
 	 * labeled alternative in {@link InlineRule#bold}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBoldSingle(InlineRule.BoldSingleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code boldMulti}
+	 * Visit a parse tree produced by the {@code BoldMulti}
 	 * labeled alternative in {@link InlineRule#bold}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -79,14 +79,14 @@ public interface InlineRuleVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitItalicElement(InlineRule.ItalicElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code italicSingle}
+	 * Visit a parse tree produced by the {@code ItalicSingle}
 	 * labeled alternative in {@link InlineRule#italic}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitItalicSingle(InlineRule.ItalicSingleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code italicMutli}
+	 * Visit a parse tree produced by the {@code ItalicMutli}
 	 * labeled alternative in {@link InlineRule#italic}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -105,14 +105,14 @@ public interface InlineRuleVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStrikeThroughElement(InlineRule.StrikeThroughElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code strikeThroughSingle}
+	 * Visit a parse tree produced by the {@code StrikeThroughSingle}
 	 * labeled alternative in {@link InlineRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitStrikeThroughSingle(InlineRule.StrikeThroughSingleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code strikeThroughMulti}
+	 * Visit a parse tree produced by the {@code StrikeThroughMulti}
 	 * labeled alternative in {@link InlineRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

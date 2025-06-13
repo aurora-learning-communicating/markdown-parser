@@ -21,7 +21,8 @@ public class InlineRule extends Parser {
 		Colon=9, Slash=10, LeftBracket=11, RightBracket=12, LeftParenthesis=13, 
 		RightParenthesis=14, AtSign=15, QuestionMark=16, Ampersand=17, Hash=18, 
 		Equal=19, Dot=20, Plus=21, Minus=22, Percent=23, InlineBacktick=24, BlockBacktick=25, 
-		CodeContent=26, InlineCodeEnd=27, BlockCodeEnd=28;
+		InlineCodeContent=26, InlineCodeEnd=27, LanguageMode=28, LanguageEmptyMode=29, 
+		LanguageModeEnd=30, EmptyChar=31, NotEmptyChar=32, BlockCodeEnd=33;
 	public static final int
 		RULE_inline = 0, RULE_indent = 1, RULE_plainText = 2, RULE_inlineCode = 3, 
 		RULE_emphasis = 4, RULE_boldTag = 5, RULE_boldElement = 6, RULE_bold = 7, 
@@ -48,7 +49,7 @@ public class InlineRule extends Parser {
 		return new String[] {
 			null, null, null, "' '", "'\\t'", null, "'*'", "'~'", "'_'", "':'", "'/'", 
 			"'['", "']'", "'('", "')'", "'@'", "'?'", "'&'", "'#'", "'='", "'.'", 
-			"'+'", "'-'", "'%'"
+			"'+'", "'-'", "'%'", null, null, null, null, null, "'\\n'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -58,7 +59,8 @@ public class InlineRule extends Parser {
 			"Underscore", "Colon", "Slash", "LeftBracket", "RightBracket", "LeftParenthesis", 
 			"RightParenthesis", "AtSign", "QuestionMark", "Ampersand", "Hash", "Equal", 
 			"Dot", "Plus", "Minus", "Percent", "InlineBacktick", "BlockBacktick", 
-			"CodeContent", "InlineCodeEnd", "BlockCodeEnd"
+			"InlineCodeContent", "InlineCodeEnd", "LanguageMode", "LanguageEmptyMode", 
+			"LanguageModeEnd", "EmptyChar", "NotEmptyChar", "BlockCodeEnd"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -345,9 +347,10 @@ public class InlineRule extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class InlineCodeContext extends ParserRuleContext {
+		public Token content;
 		public TerminalNode InlineBacktick() { return getToken(InlineRule.InlineBacktick, 0); }
-		public TerminalNode CodeContent() { return getToken(InlineRule.CodeContent, 0); }
 		public TerminalNode InlineCodeEnd() { return getToken(InlineRule.InlineCodeEnd, 0); }
+		public TerminalNode InlineCodeContent() { return getToken(InlineRule.InlineCodeContent, 0); }
 		public InlineCodeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -376,7 +379,7 @@ public class InlineRule extends Parser {
 			setState(85);
 			match(InlineBacktick);
 			setState(86);
-			match(CodeContent);
+			((InlineCodeContext)_localctx).content = match(InlineCodeContent);
 			setState(87);
 			match(InlineCodeEnd);
 			}
@@ -618,32 +621,6 @@ public class InlineRule extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class BoldSingleContext extends BoldContext {
-		public List<BoldTagContext> boldTag() {
-			return getRuleContexts(BoldTagContext.class);
-		}
-		public BoldTagContext boldTag(int i) {
-			return getRuleContext(BoldTagContext.class,i);
-		}
-		public BoldElementContext boldElement() {
-			return getRuleContext(BoldElementContext.class,0);
-		}
-		public BoldSingleContext(BoldContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InlineRuleListener ) ((InlineRuleListener)listener).enterBoldSingle(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InlineRuleListener ) ((InlineRuleListener)listener).exitBoldSingle(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InlineRuleVisitor ) return ((InlineRuleVisitor<? extends T>)visitor).visitBoldSingle(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class BoldMultiContext extends BoldContext {
 		public List<BoldTagContext> boldTag() {
 			return getRuleContexts(BoldTagContext.class);
@@ -675,6 +652,32 @@ public class InlineRule extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof InlineRuleVisitor ) return ((InlineRuleVisitor<? extends T>)visitor).visitBoldMulti(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class BoldSingleContext extends BoldContext {
+		public List<BoldTagContext> boldTag() {
+			return getRuleContexts(BoldTagContext.class);
+		}
+		public BoldTagContext boldTag(int i) {
+			return getRuleContext(BoldTagContext.class,i);
+		}
+		public BoldElementContext boldElement() {
+			return getRuleContext(BoldElementContext.class,0);
+		}
+		public BoldSingleContext(BoldContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InlineRuleListener ) ((InlineRuleListener)listener).enterBoldSingle(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InlineRuleListener ) ((InlineRuleListener)listener).exitBoldSingle(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InlineRuleVisitor ) return ((InlineRuleVisitor<? extends T>)visitor).visitBoldSingle(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -890,32 +893,6 @@ public class InlineRule extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class ItalicSingleContext extends ItalicContext {
-		public List<ItalicTagContext> italicTag() {
-			return getRuleContexts(ItalicTagContext.class);
-		}
-		public ItalicTagContext italicTag(int i) {
-			return getRuleContext(ItalicTagContext.class,i);
-		}
-		public ItalicElementContext italicElement() {
-			return getRuleContext(ItalicElementContext.class,0);
-		}
-		public ItalicSingleContext(ItalicContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InlineRuleListener ) ((InlineRuleListener)listener).enterItalicSingle(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InlineRuleListener ) ((InlineRuleListener)listener).exitItalicSingle(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InlineRuleVisitor ) return ((InlineRuleVisitor<? extends T>)visitor).visitItalicSingle(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ItalicMutliContext extends ItalicContext {
 		public List<ItalicTagContext> italicTag() {
 			return getRuleContexts(ItalicTagContext.class);
@@ -947,6 +924,32 @@ public class InlineRule extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof InlineRuleVisitor ) return ((InlineRuleVisitor<? extends T>)visitor).visitItalicMutli(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ItalicSingleContext extends ItalicContext {
+		public List<ItalicTagContext> italicTag() {
+			return getRuleContexts(ItalicTagContext.class);
+		}
+		public ItalicTagContext italicTag(int i) {
+			return getRuleContext(ItalicTagContext.class,i);
+		}
+		public ItalicElementContext italicElement() {
+			return getRuleContext(ItalicElementContext.class,0);
+		}
+		public ItalicSingleContext(ItalicContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InlineRuleListener ) ((InlineRuleListener)listener).enterItalicSingle(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InlineRuleListener ) ((InlineRuleListener)listener).exitItalicSingle(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InlineRuleVisitor ) return ((InlineRuleVisitor<? extends T>)visitor).visitItalicSingle(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2835,27 +2838,27 @@ public class InlineRule extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u001c\u015f\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
-		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
-		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
-		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
-		"\u0002\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007"+
-		"\u000f\u0002\u0010\u0007\u0010\u0002\u0011\u0007\u0011\u0002\u0012\u0007"+
-		"\u0012\u0002\u0013\u0007\u0013\u0002\u0014\u0007\u0014\u0002\u0015\u0007"+
-		"\u0015\u0002\u0016\u0007\u0016\u0002\u0017\u0007\u0017\u0002\u0018\u0007"+
-		"\u0018\u0002\u0019\u0007\u0019\u0002\u001a\u0007\u001a\u0002\u001b\u0007"+
-		"\u001b\u0002\u001c\u0007\u001c\u0002\u001d\u0007\u001d\u0002\u001e\u0007"+
-		"\u001e\u0002\u001f\u0007\u001f\u0002 \u0007 \u0001\u0000\u0001\u0000\u0001"+
-		"\u0000\u0001\u0000\u0003\u0000G\b\u0000\u0001\u0001\u0004\u0001J\b\u0001"+
-		"\u000b\u0001\f\u0001K\u0001\u0001\u0003\u0001O\b\u0001\u0001\u0002\u0004"+
-		"\u0002R\b\u0002\u000b\u0002\f\u0002S\u0001\u0003\u0001\u0003\u0001\u0003"+
-		"\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0003\u0004]\b\u0004"+
-		"\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006"+
-		"\u0001\u0006\u0001\u0006\u0003\u0006g\b\u0006\u0001\u0007\u0001\u0007"+
-		"\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007"+
-		"\u0001\u0007\u0004\u0007r\b\u0007\u000b\u0007\f\u0007s\u0001\u0007\u0001"+
-		"\u0007\u0003\u0007x\b\u0007\u0001\b\u0001\b\u0001\t\u0001\t\u0001\t\u0001"+
-		"\t\u0001\t\u0003\t\u0081\b\t\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001"+
+		"\u0004\u0001!\u015f\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
+		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
+		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
+		"\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007\u000f"+
+		"\u0002\u0010\u0007\u0010\u0002\u0011\u0007\u0011\u0002\u0012\u0007\u0012"+
+		"\u0002\u0013\u0007\u0013\u0002\u0014\u0007\u0014\u0002\u0015\u0007\u0015"+
+		"\u0002\u0016\u0007\u0016\u0002\u0017\u0007\u0017\u0002\u0018\u0007\u0018"+
+		"\u0002\u0019\u0007\u0019\u0002\u001a\u0007\u001a\u0002\u001b\u0007\u001b"+
+		"\u0002\u001c\u0007\u001c\u0002\u001d\u0007\u001d\u0002\u001e\u0007\u001e"+
+		"\u0002\u001f\u0007\u001f\u0002 \u0007 \u0001\u0000\u0001\u0000\u0001\u0000"+
+		"\u0001\u0000\u0003\u0000G\b\u0000\u0001\u0001\u0004\u0001J\b\u0001\u000b"+
+		"\u0001\f\u0001K\u0001\u0001\u0003\u0001O\b\u0001\u0001\u0002\u0004\u0002"+
+		"R\b\u0002\u000b\u0002\f\u0002S\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0003\u0004]\b\u0004\u0001"+
+		"\u0005\u0001\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001"+
+		"\u0006\u0001\u0006\u0003\u0006g\b\u0006\u0001\u0007\u0001\u0007\u0001"+
+		"\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001"+
+		"\u0007\u0004\u0007r\b\u0007\u000b\u0007\f\u0007s\u0001\u0007\u0001\u0007"+
+		"\u0003\u0007x\b\u0007\u0001\b\u0001\b\u0001\t\u0001\t\u0001\t\u0001\t"+
+		"\u0001\t\u0003\t\u0081\b\t\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001"+
 		"\n\u0001\n\u0001\n\u0001\n\u0004\n\u008c\b\n\u000b\n\f\n\u008d\u0001\n"+
 		"\u0001\n\u0003\n\u0092\b\n\u0001\u000b\u0001\u000b\u0001\u000b\u0001\f"+
 		"\u0001\f\u0001\f\u0001\f\u0001\f\u0003\f\u009c\b\f\u0001\r\u0001\r\u0001"+

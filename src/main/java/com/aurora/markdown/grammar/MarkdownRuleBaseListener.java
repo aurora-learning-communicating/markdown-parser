@@ -29,6 +29,18 @@ public class MarkdownRuleBaseListener implements MarkdownRuleListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMarkdown(MarkdownRule.MarkdownContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMarkdown(MarkdownRule.MarkdownContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInline(MarkdownRule.InlineContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -468,6 +480,90 @@ public class MarkdownRuleBaseListener implements MarkdownRuleListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitHex(MarkdownRule.HexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlock(MarkdownRule.BlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlock(MarkdownRule.BlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockCodeWithLanguage(MarkdownRule.BlockCodeWithLanguageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockCodeWithLanguage(MarkdownRule.BlockCodeWithLanguageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockCodeWithoutLanguage(MarkdownRule.BlockCodeWithoutLanguageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockCodeWithoutLanguage(MarkdownRule.BlockCodeWithoutLanguageContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockCodeContent(MarkdownRule.BlockCodeContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockCodeContent(MarkdownRule.BlockCodeContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockCodeEmptyCase1(MarkdownRule.BlockCodeEmptyCase1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockCodeEmptyCase1(MarkdownRule.BlockCodeEmptyCase1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockCodeEmptyCase2(MarkdownRule.BlockCodeEmptyCase2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockCodeEmptyCase2(MarkdownRule.BlockCodeEmptyCase2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockCodeNotEmpty(MarkdownRule.BlockCodeNotEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockCodeNotEmpty(MarkdownRule.BlockCodeNotEmptyContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

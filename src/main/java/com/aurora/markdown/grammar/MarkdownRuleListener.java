@@ -18,6 +18,16 @@ public interface MarkdownRuleListener extends ParseTreeListener {
 	 */
 	void exitStart(MarkdownRule.StartContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MarkdownRule#markdown}.
+	 * @param ctx the parse tree
+	 */
+	void enterMarkdown(MarkdownRule.MarkdownContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MarkdownRule#markdown}.
+	 * @param ctx the parse tree
+	 */
+	void exitMarkdown(MarkdownRule.MarkdownContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MarkdownRule#inline}.
 	 * @param ctx the parse tree
 	 */
@@ -88,25 +98,25 @@ public interface MarkdownRuleListener extends ParseTreeListener {
 	 */
 	void exitBoldElement(MarkdownRule.BoldElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code boldSingle}
+	 * Enter a parse tree produced by the {@code BoldSingle}
 	 * labeled alternative in {@link MarkdownRule#bold}.
 	 * @param ctx the parse tree
 	 */
 	void enterBoldSingle(MarkdownRule.BoldSingleContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code boldSingle}
+	 * Exit a parse tree produced by the {@code BoldSingle}
 	 * labeled alternative in {@link MarkdownRule#bold}.
 	 * @param ctx the parse tree
 	 */
 	void exitBoldSingle(MarkdownRule.BoldSingleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code boldMulti}
+	 * Enter a parse tree produced by the {@code BoldMulti}
 	 * labeled alternative in {@link MarkdownRule#bold}.
 	 * @param ctx the parse tree
 	 */
 	void enterBoldMulti(MarkdownRule.BoldMultiContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code boldMulti}
+	 * Exit a parse tree produced by the {@code BoldMulti}
 	 * labeled alternative in {@link MarkdownRule#bold}.
 	 * @param ctx the parse tree
 	 */
@@ -132,25 +142,25 @@ public interface MarkdownRuleListener extends ParseTreeListener {
 	 */
 	void exitItalicElement(MarkdownRule.ItalicElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code italicSingle}
+	 * Enter a parse tree produced by the {@code ItalicSingle}
 	 * labeled alternative in {@link MarkdownRule#italic}.
 	 * @param ctx the parse tree
 	 */
 	void enterItalicSingle(MarkdownRule.ItalicSingleContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code italicSingle}
+	 * Exit a parse tree produced by the {@code ItalicSingle}
 	 * labeled alternative in {@link MarkdownRule#italic}.
 	 * @param ctx the parse tree
 	 */
 	void exitItalicSingle(MarkdownRule.ItalicSingleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code italicMutli}
+	 * Enter a parse tree produced by the {@code ItalicMutli}
 	 * labeled alternative in {@link MarkdownRule#italic}.
 	 * @param ctx the parse tree
 	 */
 	void enterItalicMutli(MarkdownRule.ItalicMutliContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code italicMutli}
+	 * Exit a parse tree produced by the {@code ItalicMutli}
 	 * labeled alternative in {@link MarkdownRule#italic}.
 	 * @param ctx the parse tree
 	 */
@@ -176,25 +186,25 @@ public interface MarkdownRuleListener extends ParseTreeListener {
 	 */
 	void exitStrikeThroughElement(MarkdownRule.StrikeThroughElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code strikeThroughSingle}
+	 * Enter a parse tree produced by the {@code StrikeThroughSingle}
 	 * labeled alternative in {@link MarkdownRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 */
 	void enterStrikeThroughSingle(MarkdownRule.StrikeThroughSingleContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code strikeThroughSingle}
+	 * Exit a parse tree produced by the {@code StrikeThroughSingle}
 	 * labeled alternative in {@link MarkdownRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 */
 	void exitStrikeThroughSingle(MarkdownRule.StrikeThroughSingleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code strikeThroughMulti}
+	 * Enter a parse tree produced by the {@code StrikeThroughMulti}
 	 * labeled alternative in {@link MarkdownRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 */
 	void enterStrikeThroughMulti(MarkdownRule.StrikeThroughMultiContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code strikeThroughMulti}
+	 * Exit a parse tree produced by the {@code StrikeThroughMulti}
 	 * labeled alternative in {@link MarkdownRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 */
@@ -403,4 +413,84 @@ public interface MarkdownRuleListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitHex(MarkdownRule.HexContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MarkdownRule#block}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlock(MarkdownRule.BlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MarkdownRule#block}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlock(MarkdownRule.BlockContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BlockCodeWithLanguage}
+	 * labeled alternative in {@link MarkdownRule#blockCodeLanguage}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockCodeWithLanguage(MarkdownRule.BlockCodeWithLanguageContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BlockCodeWithLanguage}
+	 * labeled alternative in {@link MarkdownRule#blockCodeLanguage}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockCodeWithLanguage(MarkdownRule.BlockCodeWithLanguageContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BlockCodeWithoutLanguage}
+	 * labeled alternative in {@link MarkdownRule#blockCodeLanguage}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockCodeWithoutLanguage(MarkdownRule.BlockCodeWithoutLanguageContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BlockCodeWithoutLanguage}
+	 * labeled alternative in {@link MarkdownRule#blockCodeLanguage}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockCodeWithoutLanguage(MarkdownRule.BlockCodeWithoutLanguageContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MarkdownRule#blockCodeContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockCodeContent(MarkdownRule.BlockCodeContentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MarkdownRule#blockCodeContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockCodeContent(MarkdownRule.BlockCodeContentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BlockCodeEmptyCase1}
+	 * labeled alternative in {@link MarkdownRule#blockCode}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockCodeEmptyCase1(MarkdownRule.BlockCodeEmptyCase1Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BlockCodeEmptyCase1}
+	 * labeled alternative in {@link MarkdownRule#blockCode}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockCodeEmptyCase1(MarkdownRule.BlockCodeEmptyCase1Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BlockCodeEmptyCase2}
+	 * labeled alternative in {@link MarkdownRule#blockCode}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockCodeEmptyCase2(MarkdownRule.BlockCodeEmptyCase2Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BlockCodeEmptyCase2}
+	 * labeled alternative in {@link MarkdownRule#blockCode}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockCodeEmptyCase2(MarkdownRule.BlockCodeEmptyCase2Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BlockCodeNotEmpty}
+	 * labeled alternative in {@link MarkdownRule#blockCode}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockCodeNotEmpty(MarkdownRule.BlockCodeNotEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BlockCodeNotEmpty}
+	 * labeled alternative in {@link MarkdownRule#blockCode}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockCodeNotEmpty(MarkdownRule.BlockCodeNotEmptyContext ctx);
 }

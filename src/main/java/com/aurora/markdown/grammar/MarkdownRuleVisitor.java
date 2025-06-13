@@ -17,6 +17,12 @@ public interface MarkdownRuleVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(MarkdownRule.StartContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MarkdownRule#markdown}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMarkdown(MarkdownRule.MarkdownContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MarkdownRule#inline}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -59,14 +65,14 @@ public interface MarkdownRuleVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBoldElement(MarkdownRule.BoldElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code boldSingle}
+	 * Visit a parse tree produced by the {@code BoldSingle}
 	 * labeled alternative in {@link MarkdownRule#bold}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBoldSingle(MarkdownRule.BoldSingleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code boldMulti}
+	 * Visit a parse tree produced by the {@code BoldMulti}
 	 * labeled alternative in {@link MarkdownRule#bold}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -85,14 +91,14 @@ public interface MarkdownRuleVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitItalicElement(MarkdownRule.ItalicElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code italicSingle}
+	 * Visit a parse tree produced by the {@code ItalicSingle}
 	 * labeled alternative in {@link MarkdownRule#italic}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitItalicSingle(MarkdownRule.ItalicSingleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code italicMutli}
+	 * Visit a parse tree produced by the {@code ItalicMutli}
 	 * labeled alternative in {@link MarkdownRule#italic}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -111,14 +117,14 @@ public interface MarkdownRuleVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStrikeThroughElement(MarkdownRule.StrikeThroughElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code strikeThroughSingle}
+	 * Visit a parse tree produced by the {@code StrikeThroughSingle}
 	 * labeled alternative in {@link MarkdownRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitStrikeThroughSingle(MarkdownRule.StrikeThroughSingleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code strikeThroughMulti}
+	 * Visit a parse tree produced by the {@code StrikeThroughMulti}
 	 * labeled alternative in {@link MarkdownRule#strikeThrough}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -246,4 +252,51 @@ public interface MarkdownRuleVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitHex(MarkdownRule.HexContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MarkdownRule#block}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlock(MarkdownRule.BlockContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BlockCodeWithLanguage}
+	 * labeled alternative in {@link MarkdownRule#blockCodeLanguage}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockCodeWithLanguage(MarkdownRule.BlockCodeWithLanguageContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BlockCodeWithoutLanguage}
+	 * labeled alternative in {@link MarkdownRule#blockCodeLanguage}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockCodeWithoutLanguage(MarkdownRule.BlockCodeWithoutLanguageContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MarkdownRule#blockCodeContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockCodeContent(MarkdownRule.BlockCodeContentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BlockCodeEmptyCase1}
+	 * labeled alternative in {@link MarkdownRule#blockCode}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockCodeEmptyCase1(MarkdownRule.BlockCodeEmptyCase1Context ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BlockCodeEmptyCase2}
+	 * labeled alternative in {@link MarkdownRule#blockCode}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockCodeEmptyCase2(MarkdownRule.BlockCodeEmptyCase2Context ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BlockCodeNotEmpty}
+	 * labeled alternative in {@link MarkdownRule#blockCode}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockCodeNotEmpty(MarkdownRule.BlockCodeNotEmptyContext ctx);
 }

@@ -8,6 +8,17 @@ sealed class MarkdownElement(open val content: ArrayList<MarkdownElement>?) {
 
     abstract class InlineElement(override val content: ArrayList<MarkdownElement>?): MarkdownElement(content)
     abstract class BlockElement(override val content: ArrayList<MarkdownElement>?): MarkdownElement(content)
+    class RootElement: MarkdownElement(content = arrayListOf()) {
+        override val appendable: List<KClass<out MarkdownElement>>
+            get() = listOf(MarkdownElement::class)
+
+        override fun toHTML(): String {
+            return this.content!!.joinToString {
+                it.toHTML()
+            }
+        }
+    }
+
 
     fun append(element: MarkdownElement) {
         if (this.content == null) {
