@@ -3,6 +3,7 @@ package com.aurora.markdown.core.emphasis
 import com.aurora.markdown.core.MarkdownElement
 import com.aurora.markdown.core.code.InlineCode
 import com.aurora.markdown.core.link.UrlLink
+import com.aurora.markdown.core.plaintext.PlainText
 import kotlin.reflect.KClass
 
 class StrikeThrough: Emphasis() {
@@ -19,6 +20,8 @@ class StrikeThrough: Emphasis() {
             Italic::class,
             Bold::class,
             UrlLink::class,
-            InlineCode::class
+            InlineCode::class,
+            PlainText::class,
+            UrlLink::class
         )
 }

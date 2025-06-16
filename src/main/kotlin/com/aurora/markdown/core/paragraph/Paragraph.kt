@@ -8,10 +8,20 @@ class Paragraph: MarkdownElement.BlockElement(arrayListOf()) {
         get() = listOf(InlineElement::class)
 
     override fun toHTML(): String {
-        val nested = this.content!!.joinToString(" ") {
+        val nested = this.content!!.joinToString("") {
             it.toHTML()
         }
 
         return "<p>$nested</p>"
+    }
+
+    fun concat(paragraph: Paragraph) {
+        paragraph.content!!.forEach {
+            this.content!!.add(it)
+        }
+    }
+
+    fun concat(block: () -> Paragraph) {
+        concat(block())
     }
 }

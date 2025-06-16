@@ -1,5 +1,6 @@
 package com.aurora.markdown.parse
 
+import com.aurora.markdown.core.Divider
 import com.aurora.markdown.grammar.MarkdownRule
 import com.aurora.markdown.grammar.MarkdownRuleBaseVisitor
 import com.aurora.markdown.core.MarkdownElement
@@ -9,7 +10,9 @@ import com.aurora.markdown.core.code.LanguageMode
 import com.aurora.markdown.core.emphasis.Bold
 import com.aurora.markdown.core.emphasis.Italic
 import com.aurora.markdown.core.emphasis.StrikeThrough
+import com.aurora.markdown.core.link.ImageLink
 import com.aurora.markdown.core.link.UrlLink
+import com.aurora.markdown.core.paragraph.Paragraph
 import com.aurora.markdown.core.plaintext.PlainText
 import java.net.URL
 
@@ -17,7 +20,7 @@ class MarkdownRuleParser: MarkdownRuleBaseVisitor<MarkdownElement>() {
 
     override fun visitStart(ctx: MarkdownRule.StartContext): MarkdownElement.RootElement {
         return MarkdownElement.RootElement().apply {
-            ctx.markdown().map {
+            ctx.block().map {
                 visit(it)
             }.forEach {
                 append(it)
@@ -91,6 +94,11 @@ class MarkdownRuleParser: MarkdownRuleBaseVisitor<MarkdownElement>() {
         return UrlLink(altText, url)
     }
 
+    override fun visitImageLink(ctx: MarkdownRule.ImageLinkContext): ImageLink {
+        val urlLink = visit(ctx.urlLink()) as UrlLink
+        return ImageLink(urlLink)
+    }
+
     // visit Block Code
     override fun visitBlockCodeEmptyCase1(ctx: MarkdownRule.BlockCodeEmptyCase1Context): BlockCode {
         return visit(ctx.blockCodeLanguage()) as BlockCode
@@ -119,6 +127,55 @@ class MarkdownRuleParser: MarkdownRuleBaseVisitor<MarkdownElement>() {
 
     override fun visitBlockCodeWithoutLanguage(ctx: MarkdownRule.BlockCodeWithoutLanguageContext): BlockCode {
         return BlockCode(mode = null, text = "")
+    }
+
+    override fun visitParagraphIndent(ctx: MarkdownRule.ParagraphIndentContext): Divider.Space {
+        return Divider.Space
+    }
+
+    override fun visitParagraphSingleLine(ctx: MarkdownRule.ParagraphSingleLineContext): Paragraph {
+        return Paragraph().apply {
+            append {
+                visit(ctx.paragraphElement(0))
+            }
+
+            ctx.paragraphElement().drop(1).forEach {
+                append(Divider.Space)
+                append {
+                    visit(it)
+                }
+            }
+        }
+    }
+
+    override fun visitParagraphMultiLine(ctx: MarkdownRule.ParagraphMultiLineContext): Paragraph {
+        return Paragraph().apply {
+            concat {
+                visit(ctx.paragraph(0)) as Paragraph
+            }
+
+            ctx.softLineBreak().zip(ctx.paragraph().drop(1)).forEach { (ctxSoftLineBreak, ctxParagraph) ->
+                append {
+                    visit(ctxSoftLineBreak)
+                }
+
+                concat {
+                    visit(ctxParagraph) as Paragraph
+                }
+            }
+        }
+    }
+
+    override fun visitParagraphWithIndent(ctx: MarkdownRule.ParagraphWithIndentContext): Paragraph {
+        return visit(ctx.paragraph()) as Paragraph
+    }
+
+    override fun visitLineBreakNewLine(ctx: MarkdownRule.LineBreakNewLineContext): Divider.Newline {
+        return Divider.Newline
+    }
+
+    override fun visitLineBreakIgnore(ctx: MarkdownRule.LineBreakIgnoreContext): Divider.Ignore {
+        return Divider.Ignore
     }
 }
 

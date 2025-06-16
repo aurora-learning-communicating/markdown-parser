@@ -36,6 +36,7 @@ Dot: '.';
 Plus: '+';
 Minus: '-';
 Percent: '%';
+Exclamation: '!';
 
 InlineBacktick: '`' -> pushMode(INLINE_CODE_MODE);
 BlockBacktick: '```' -> pushMode(BLOCK_CODE_MODE);

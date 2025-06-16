@@ -33,8 +33,10 @@ tasks.test {
 val grammarOutput = file("src/main/java/com/aurora/markdown/grammar")
 
 tasks.generateGrammarSource {
+    dependsOn(tasks.named("antlr-clean"))
+
     outputDirectory = grammarOutput
-    arguments = arguments + listOf("-visitor", "-package", "com.aurora.markdown.grammar")
+    arguments = arguments + listOf("-visitor", "-package", "com.aurora.markdown.grammar", "-no-listener")
 
     doLast {
         val grammarDir = file("$projectDir/grammar")
@@ -52,8 +54,10 @@ tasks.generateGrammarSource {
 }
 
 tasks.generateTestGrammarSource {
+    dependsOn(tasks.named("antlr-clean"))
+
     outputDirectory = file("src/main/java/com/aurora/markdown/grammar")
-    arguments = arguments + listOf("-visitor", "-package", "com.aurora.markdown.grammar")
+    arguments = arguments + listOf("-visitor", "-package", "com.aurora.markdown.grammar", "-no-listener")
 
     doLast {
         val grammarDir = file("$projectDir/grammar")

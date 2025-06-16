@@ -6,7 +6,7 @@ options {
 
 import UrlRule;
 
-inline: plainText | inlineCode | emphasis | urlLink;
+inline: plainText | inlineCode | emphasis | urlLink | imageLink;
 
 // indent: Space{2,} | Tab;
 indent: Space+ | Tab;
@@ -36,3 +36,5 @@ strikeThrough: strikeThroughTag strikeThroughElement strikeThroughTag # StrikeTh
 
 urlLink: LeftBracket altText RightBracket LeftParenthesis url RightParenthesis;
 altText: plainText (Space plainText)*;
+
+imageLink: Exclamation urlLink;

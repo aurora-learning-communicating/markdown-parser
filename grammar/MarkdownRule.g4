@@ -1,12 +1,10 @@
 parser grammar MarkdownRule;
 
-import InlineRule, BlockRule;
+import BlockRule;
 
 
 options {
     tokenVocab = MarkdownLexer;
 }
 
-start: markdown* EOF;
-
-markdown: inline | block;
+start: block* EOF;

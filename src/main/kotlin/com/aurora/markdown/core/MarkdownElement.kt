@@ -13,7 +13,7 @@ sealed class MarkdownElement(open val content: ArrayList<MarkdownElement>?) {
             get() = listOf(MarkdownElement::class)
 
         override fun toHTML(): String {
-            return this.content!!.joinToString {
+            return this.content!!.joinToString("") {
                 it.toHTML()
             }
         }
@@ -29,7 +29,7 @@ sealed class MarkdownElement(open val content: ArrayList<MarkdownElement>?) {
         val elementJavaClass = elementClass.java
         val contains = elementClass in appendable
         val exist = this.appendable.any { base ->
-            base.java.isAssignableFrom(elementJavaClass)
+            elementClass == base || base.java.isAssignableFrom(elementJavaClass)
         }
 
         if (contains || exist) {
