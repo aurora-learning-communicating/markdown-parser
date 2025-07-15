@@ -12,6 +12,11 @@ import com.aurora.markdown.core.emphasis.Italic
 import com.aurora.markdown.core.emphasis.StrikeThrough
 import com.aurora.markdown.core.link.ImageLink
 import com.aurora.markdown.core.link.UrlLink
+import com.aurora.markdown.core.list.ListItem
+import com.aurora.markdown.core.list.ListItemContent
+import com.aurora.markdown.core.list.ListItemMarker
+import com.aurora.markdown.core.list.ListItemPrefix
+import com.aurora.markdown.core.list.MarkdownList
 import com.aurora.markdown.core.paragraph.Paragraph
 import com.aurora.markdown.core.plaintext.PlainText
 import java.net.URL
@@ -33,9 +38,12 @@ class MarkdownRuleParser: MarkdownRuleBaseVisitor<MarkdownElement>() {
         return PlainText(text)
     }
 
-    override fun visitInlineCode(ctx: MarkdownRule.InlineCodeContext): InlineCode {
-        val code = ctx.content.text
-        return InlineCode(code)
+    override fun visitInlineCodeEmpty(ctx: MarkdownRule.InlineCodeEmptyContext): InlineCode {
+        return InlineCode("")
+    }
+
+    override fun visitInlineCodeCommon(ctx: MarkdownRule.InlineCodeCommonContext): InlineCode {
+        return InlineCode(ctx.inlineCodeContent().text)
     }
 
     override fun visitBoldSingle(ctx: MarkdownRule.BoldSingleContext): Bold {
@@ -100,33 +108,25 @@ class MarkdownRuleParser: MarkdownRuleBaseVisitor<MarkdownElement>() {
     }
 
     // visit Block Code
-    override fun visitBlockCodeEmptyCase1(ctx: MarkdownRule.BlockCodeEmptyCase1Context): BlockCode {
-        return visit(ctx.blockCodeLanguage()) as BlockCode
+    override fun visitBlockCodeEmpty(ctx: MarkdownRule.BlockCodeEmptyContext): BlockCode {
+        val codeStart = ctx.blockCodeStart()
+        val language = codeStart.blockCodeLanguage()?.text
+        return if (language == null) {
+            BlockCode(null, "")
+        } else {
+            BlockCode(LanguageMode(language), "")
+        }
     }
 
-    override fun visitBlockCodeEmptyCase2(ctx: MarkdownRule.BlockCodeEmptyCase2Context): BlockCode {
-        val blockCode = visit(ctx.blockCodeLanguage()) as BlockCode
-        val empty = ctx.empty.text
-        blockCode.text = empty
-
-        return blockCode
-    }
-
-    override fun visitBlockCodeNotEmpty(ctx: MarkdownRule.BlockCodeNotEmptyContext): BlockCode {
-        val blockCode = visit(ctx.blockCodeLanguage()) as BlockCode
-        blockCode.text = ctx.blockCodeContent().text
-
-        return blockCode
-    }
-
-    override fun visitBlockCodeWithLanguage(ctx: MarkdownRule.BlockCodeWithLanguageContext): BlockCode {
-        val languageText = ctx.LanguageMode().text
-        val language = LanguageMode(languageText)
-        return BlockCode(mode = language, text = "")
-    }
-
-    override fun visitBlockCodeWithoutLanguage(ctx: MarkdownRule.BlockCodeWithoutLanguageContext): BlockCode {
-        return BlockCode(mode = null, text = "")
+    override fun visitBlockCodeCommon(ctx: MarkdownRule.BlockCodeCommonContext): BlockCode {
+        val codeStart = ctx.blockCodeStart()
+        val language = codeStart.blockCodeLanguage()?.text
+        val content = ctx.blockCodeContent().text
+        return if (language == null) {
+            BlockCode(null, content)
+        } else {
+            BlockCode(LanguageMode(language), content)
+        }
     }
 
     override fun visitParagraphIndent(ctx: MarkdownRule.ParagraphIndentContext): Divider.Space {
@@ -170,12 +170,235 @@ class MarkdownRuleParser: MarkdownRuleBaseVisitor<MarkdownElement>() {
         return visit(ctx.paragraph()) as Paragraph
     }
 
+    // TODO list with indent
+    // visit ordered list item marker
+    override fun visitOrderedListItemMarkerSingleElement(ctx: MarkdownRule.OrderedListItemMarkerSingleElementContext): ListItemMarker {
+        val number = ctx.orderedListItemPrefix().prefix.text.toUInt()
+        val prefix = ListItemPrefix.Ordered(number)
+
+        return ListItemMarker(prefix).apply {
+            append {
+                visit(ctx.inline())
+            }
+        }
+    }
+
+    override fun visitOrderedListItemMarkerMultiElement(ctx: MarkdownRule.OrderedListItemMarkerMultiElementContext): ListItemMarker {
+        val number = ctx.orderedListItemPrefix().prefix.text.toUInt()
+        val prefix = ListItemPrefix.Ordered(number)
+
+        return ListItemMarker(prefix).apply {
+            append {
+                visit(ctx.inline(0))
+            }
+
+            ctx.paragraphIndent().zip(ctx.inline().drop(1)).forEach { (paragraphIndent, inline) ->
+                append {
+                    visit(paragraphIndent)
+                }
+
+                append {
+                    visit(inline)
+                }
+            }
+        }
+    }
+
+    // TODO visit unorder list item marker
+    override fun visitUnOrderedListItemMarkerSingleElement(ctx: MarkdownRule.UnOrderedListItemMarkerSingleElementContext): ListItemMarker {
+        return ListItemMarker(ListItemPrefix.Unordered).apply {
+            append {
+                visit(ctx.inline())
+            }
+        }
+    }
+
+    override fun visitUnOrderedListItemMarkerMultiElement(ctx: MarkdownRule.UnOrderedListItemMarkerMultiElementContext): ListItemMarker {
+        return ListItemMarker(ListItemPrefix.Unordered).apply {
+            append {
+                visit(ctx.inline(0))
+            }
+
+            ctx.paragraphIndent().zip(ctx.inline().drop(1)).forEach { (paragraphIndent, inline) ->
+                append {
+                    visit(paragraphIndent)
+                }
+
+                append {
+                    visit(inline)
+                }
+            }
+        }
+    }
+
+    // visit list content
+    override fun visitListItemContentListItem(ctx: MarkdownRule.ListItemContentListItemContext): ListItemContent {
+        return ListItemContent().apply {
+            val items = ctx.listItem().map {
+                visit(it) as ListItem
+            }
+
+            groupListItems(items).forEach {
+                append(it)
+            }
+        }
+    }
+
+    override fun visitListItemContentInlineElements(ctx: MarkdownRule.ListItemContentInlineElementsContext): ListItemContent {
+        return ListItemContent().apply {
+            ctx.listItemContentIndent().zip(ctx.inline()).forEach { (indent, inline) ->
+                append {
+                    visit(indent)
+                }
+
+                append {
+                    visit(inline)
+                }
+            }
+        }
+    }
+
+    override fun visitListItemContentBlockCodeEmpty(ctx: MarkdownRule.ListItemContentBlockCodeEmptyContext): ListItemContent {
+        return ListItemContent().apply {
+            val language = ctx.blockCodeStart().blockCodeLanguage()?.text?.let {
+                LanguageMode(it)
+            }
+
+            append {
+                BlockCode(language, "")
+            }
+        }
+    }
+
+    override fun visitListItemContentBlockCodeCommon(ctx: MarkdownRule.ListItemContentBlockCodeCommonContext): ListItemContent {
+        val language = ctx.blockCodeStart().blockCodeLanguage()?.text?.let {
+            LanguageMode(it)
+        }
+
+        val codeContent = ctx.blockCodeContent().text
+
+        val blockCode = BlockCode(language, codeContent)
+
+        return ListItemContent().apply {
+            append(blockCode)
+        }
+    }
+
+    // visit list item
+    override fun visitOrderedListItemOnlyMarker(ctx: MarkdownRule.OrderedListItemOnlyMarkerContext): ListItem {
+        val marker = visit(ctx.orderedListItemMarker()) as ListItemMarker
+
+        return ListItem(marker)
+    }
+
+    override fun visitOrderedListItemWithContent(ctx: MarkdownRule.OrderedListItemWithContentContext): ListItem {
+        val marker = visit(ctx.orderedListItemMarker()) as ListItemMarker
+
+        return ListItem(marker).apply {
+            ctx.listItemContent().forEach {
+                append {
+                    visit(it)
+                }
+            }
+        }
+    }
+
+    override fun visitUnOrderedListItemOnlyMarker(ctx: MarkdownRule.UnOrderedListItemOnlyMarkerContext): ListItem {
+        val marker = visit(ctx.unOrderedListItemMarker()) as ListItemMarker
+
+        return ListItem(marker)
+    }
+
+    override fun visitUnOrderedListItemWithContent(ctx: MarkdownRule.UnOrderedListItemWithContentContext): ListItem {
+        val marker = visit(ctx.unOrderedListItemMarker()) as ListItemMarker
+
+        return ListItem(marker).apply {
+            ctx.listItemContent().forEach {
+                append {
+                    visit(it)
+                }
+            }
+        }
+    }
+
+    override fun visitOrderedList(ctx: MarkdownRule.OrderedListContext): MarkdownList.OrderedList {
+        return MarkdownList.OrderedList().apply {
+            append {
+                visit(ctx.orderedListItem().first())
+            }
+
+            ctx.softLineBreak().zip(ctx.orderedListItem().drop(1)).forEach { (ctxSoftLineBreak, ctxListItem) ->
+                append {
+                    visit(ctxSoftLineBreak)
+                }
+
+                append {
+                    visit(ctxListItem)
+                }
+            }
+        }
+    }
+
+    override fun visitUnOrderedList(ctx: MarkdownRule.UnOrderedListContext): MarkdownList.UnOrderedList {
+        return MarkdownList.UnOrderedList().apply {
+            append {
+                visit(ctx.unOrderedListItem().first())
+            }
+
+            ctx.softLineBreak().zip(ctx.unOrderedListItem()).forEach { (ctxSoftLineBreak, ctxListItem) ->
+                append {
+                    visit(ctxSoftLineBreak)
+                }
+
+                append {
+                    visit(ctxListItem)
+                }
+            }
+        }
+    }
+
+
     override fun visitLineBreakNewLine(ctx: MarkdownRule.LineBreakNewLineContext): Divider.Newline {
         return Divider.Newline
     }
 
     override fun visitLineBreakIgnore(ctx: MarkdownRule.LineBreakIgnoreContext): Divider.Ignore {
         return Divider.Ignore
+    }
+
+    private fun groupListItems(listItems: List<ListItem>): List<MarkdownList> {
+        val lists = mutableListOf<MarkdownList>()
+        val firstItem = listItems.first()
+        val firstList = if (firstItem.isOrdered) {
+            MarkdownList.OrderedList()
+        } else {
+            MarkdownList.UnOrderedList()
+        }
+
+        firstList.append(firstItem)
+
+        lists.add(firstList)
+
+        var prevItem = firstItem
+
+        for (item in listItems.drop(1)) {
+            if (prevItem.isOrdered != item.isOrdered) {
+                val list = if (item.isOrdered) {
+                    MarkdownList.OrderedList()
+                } else {
+                    MarkdownList.UnOrderedList()
+                }
+
+                list.append(item)
+                lists.add(list)
+                prevItem = item
+            } else {
+                lists.last().append(item)
+                prevItem = item
+            }
+        }
+
+        return lists
     }
 }
 

@@ -3,7 +3,7 @@ package com.aurora.markdown.core.code
 import com.aurora.markdown.core.MarkdownElement
 import kotlin.reflect.KClass
 
-class BlockCode(val mode: LanguageMode?, var text: String): MarkdownElement.BlockElement(null) {
+class BlockCode(val mode: LanguageMode?, val text: String): MarkdownElement.BlockElement(null) {
     override val appendable: List<KClass<out MarkdownElement>>
         get() = emptyList()
 

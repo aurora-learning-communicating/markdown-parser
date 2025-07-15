@@ -12,7 +12,14 @@ inline: plainText | inlineCode | emphasis | urlLink | imageLink;
 indent: Space+ | Tab;
 
 plainText: (Letter | Digit)+;
-inlineCode: InlineBacktick content=InlineCodeContent InlineCodeEnd;
+inlineCodeChar: ~(Backtick | Newline);
+inlineCodeContent: inlineCodeChar+;
+inlineCode:
+    Backtick Backtick # InlineCodeEmpty
+  | Backtick inlineCodeContent Backtick # InlineCodeCommon
+  ;
+
+// inlineCode: Backtick content=InlineCodeContent Backtick;
 
 emphasis: bold | italic | strikeThrough;
 

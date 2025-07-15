@@ -47,6 +47,17 @@ class TestBlock {
     }
 
     @Test
+    fun testList() {
+        val input = CharStreams.fromFileName("src/test/resources/test.md")
+        val root = visit(input) {
+            this.start()
+        }
+
+        println(root.toHTML())
+    }
+
+
+    @Test
     fun testStrikeThrough() {
         val string = "~~fuck you~~"
         val input = CharStreams.fromString(string)

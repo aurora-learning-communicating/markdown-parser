@@ -37,26 +37,29 @@ Plus: '+';
 Minus: '-';
 Percent: '%';
 Exclamation: '!';
+Backtick: '`';
+AngleBracket: '>';
+// InlineBacktick: '`' -> pushMode(INLINE_CODE_MODE);
+// BlockBacktick: '```' -> pushMode(BLOCK_CODE_MODE);
 
-InlineBacktick: '`' -> pushMode(INLINE_CODE_MODE);
-BlockBacktick: '```' -> pushMode(BLOCK_CODE_MODE);
+//mode INLINE_CODE_MODE;
+//InlineCodeContent: ~[`\r\n]+;
+//InlineCodeEnd: '`' -> popMode;
 
-mode INLINE_CODE_MODE;
-InlineCodeContent: ~[`\r\n]+;
-InlineCodeEnd: '`' -> popMode;
+//mode BLOCK_CODE_MODE;
+//LanguageMode: (Letter | Digit)+ -> pushMode(BLOCK_CODE_LANGUAGE_MODE);
+//LanguageEmptyMode: '\r'? '\n' -> pushMode(BLOCK_CODE_CONTENT_MODE);
 
-mode BLOCK_CODE_MODE;
-LanguageMode: (Letter | Digit)+ -> pushMode(BLOCK_CODE_LANGUAGE_MODE);
-LanguageEmptyMode: '\n' -> pushMode(BLOCK_CODE_CONTENT_MODE);
 
-mode BLOCK_CODE_LANGUAGE_MODE;
-LanguageModeEnd: '\r'? '\n' -> pushMode(BLOCK_CODE_CONTENT_MODE);
+//mode BLOCK_CODE_LANGUAGE_MODE;
+//LanguageModeEnd: '\r'? '\n' -> pushMode(BLOCK_CODE_CONTENT_MODE);
 
-mode BLOCK_CODE_CONTENT_MODE;
+// stub 6.29
 
-EmptyChar: [ \r\n\t];
-NotEmptyChar: ~[ \r\n\t];
-BlockCodeEnd: '```' {
-   popUntilDefaultMode();
-};
+
+//mode BLOCK_CODE_CONTENT_MODE;
+//Chars : ( ~[`] | '`' ~[`] | '``' ~[`])+ ;
+//BlockCodeEnd: '```' {
+//   popUntilDefaultMode();
+//};
 
